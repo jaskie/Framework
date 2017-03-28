@@ -53,6 +53,11 @@ namespace Svt.Caspar
             Connection.ConnectionStateChanged += server__ConnectionStateChanged;
 		}
 
+        ~CasparDevice()
+        {            
+            Connection.CloseConnection();
+        }
+
 		#region Server notifications
         void server__ConnectionStateChanged(object sender, Network.ConnectionEventArgs e)
         {

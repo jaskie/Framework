@@ -58,9 +58,12 @@ namespace Svt.Network
 			{
                 Connection.ConnectionStateChanged -= Connection_ConnectionStateChanged;
                 OnReconnected(e);
-                Timer.Elapsed -= Timer_Elapsed;
-                Timer.Close();
-                Timer = null;
+                if (Timer != null)
+                {
+                    Timer.Elapsed -= Timer_Elapsed;
+                    Timer.Close();
+                    Timer = null;
+                }
 			}
 			else
 				Timer.Start();
