@@ -1,2 +1,4 @@
-/csharp/trunk/Svt.Caspar/obj/Debug
-/csharp/trunk/Svt.Network/obj/Debug
+/csharp/trunk/Svt.Network/bin
+/csharp/trunk/Svt.Network/obj
+/csharp/trunk/Svt.Caspar/bin
+/csharp/trunk/Svt.Caspar/obj

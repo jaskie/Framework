@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Svt.Caspar
 {
-	public class CasparDevice
+	public class CasparDevice : IDisposable
 	{
         internal Svt.Network.ServerConnection Connection { get; private set; }
         private Svt.Network.ReconnectionHelper ReconnectionHelper { get; set; }
@@ -53,12 +53,22 @@ namespace Svt.Caspar
             Connection.ConnectionStateChanged += server__ConnectionStateChanged;
 		}
 
-        ~CasparDevice()
-        {            
-            Connection.CloseConnection();
-        }
+        #region IDisposable
 
-		#region Server notifications
+        bool _disposed;
+        public void Dispose()
+        {
+            if (!_disposed)
+            {
+                _disposed = true;
+                Connection.CloseConnection();
+            }
+        }
+        
+
+        #endregion IDisposable
+
+        #region Server notifications
         void server__ConnectionStateChanged(object sender, Network.ConnectionEventArgs e)
         {
             try
@@ -267,8 +277,9 @@ namespace Svt.Caspar
 			if(DataRetrieved != null)
 				DataRetrieved(this, new DataEventArgs(data));
 		}
-		#endregion
-	}
+
+        #endregion
+    }
 
 	public class DataEventArgs : EventArgs
 	{
