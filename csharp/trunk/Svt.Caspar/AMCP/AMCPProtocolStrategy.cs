@@ -116,15 +116,7 @@ namespace Svt.Caspar.AMCP
 			device_.OnUpdatedTemplatesList(templates);
 		}
 
-        private string ConvertToTimecode(double time, int fps)
-        {
-            int hour = (int)(time / 3600);
-            int minutes = (int)((time - hour * 3600) / 60);
-            int seconds = (int)(time - hour * 3600 - minutes * 60);
-            int frames = (int)((time - hour * 3600 - minutes * 60 - seconds) * fps);
 
-            return string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", hour, minutes, seconds, frames);
-        }
 
 		private void OnCLS(AMCPParserEventArgs e)
 		{
@@ -155,20 +147,23 @@ namespace Svt.Caspar.AMCP
                 Int64 size = Int64.Parse(param[1]);
                 DateTime updated = DateTime.ParseExact(param[2], "yyyyMMddHHmmss", null);
 
-                string timecode = "";
+                TimeSpan duration = TimeSpan.Zero;
                 if (param.Length > 3)
                 {
                     string totalFrames = param[3];
                     string timebase = param[4];
 
                     long frames = long.Parse(totalFrames);
-                    int fps = int.Parse(timebase.Split('/')[1]);
+                    string[] fps = timebase.Split('/');
+                    if (fps.Length == 2
+                        && int.TryParse(fps[0], out int fpsNum)
+                        && int.TryParse(fps[1], out int fpsDen)
+                        && fpsDen > 0)
+                        duration = TimeSpan.FromTicks((TimeSpan.TicksPerSecond * frames * fpsNum) / fpsDen);
 
-                    double time = frames * (1.0 / fps);
-                    timecode = ConvertToTimecode(time, fps);
                 }
 
-				clips.Add(new MediaInfo(folderName, fileName, type, size, updated, timecode));
+				clips.Add(new MediaInfo(folderName, fileName, type, size, updated, duration));
 			}
 
 			device_.OnUpdatedMediafiles(clips);

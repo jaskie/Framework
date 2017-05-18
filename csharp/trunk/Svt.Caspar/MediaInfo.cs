@@ -13,18 +13,18 @@ namespace Svt.Caspar
 
 	public class MediaInfo
 	{
-		internal MediaInfo(string folder, string name, MediaType type, Int64 size, DateTime updated, string timecode)
+		internal MediaInfo(string folder, string name, MediaType type, Int64 size, DateTime updated, TimeSpan duration)
 		{
 			Folder = folder;
 			Name = name;
 			Size = size;
 			LastUpdated = updated;
 			Type = type;
-            Timecode = timecode;
+            Duration = duration;
 		}
 
-        private string timecode_;
-        public string Timecode
+        private TimeSpan timecode_;
+        public TimeSpan Duration
         {
             get { return timecode_; }
             internal set { timecode_ = value; }
