@@ -13,10 +13,10 @@ namespace Svt.Caspar.AMCP
 		internal AMCPProtocolStrategy(CasparDevice device)
 		{
 			device_ = device;
-			parser_.ResponseParsed += new EventHandler<AMCPParserEventArgs>(parser__ResponseParsed);
+			parser_.ResponseParsed += new EventHandler<AMCPParserEventArgs>(Parser_ResponseParsed);
 		}
 
-		void parser__ResponseParsed(object sender, AMCPParserEventArgs e)
+		private void Parser_ResponseParsed(object sender, AMCPParserEventArgs e)
 		{
 			//A response is completely parsed
 			//Info about it is in the eventArgs

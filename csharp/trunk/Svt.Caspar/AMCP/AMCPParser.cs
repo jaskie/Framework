@@ -286,9 +286,8 @@ namespace Svt.Caspar.AMCP
 
 		void OnResponseParsed(AMCPParserEventArgs args)
 		{
-			if (ResponseParsed != null)
-				ResponseParsed(this, args);
-		}
+            ResponseParsed?.Invoke(this, args);
+        }
 
 		AMCPError ErrorFactory(string errorCode)
 		{
