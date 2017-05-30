@@ -24,7 +24,7 @@ namespace Svt.Caspar
 		public bool Load(string clipname, bool loop)
 		{
             clipname = clipname.Replace("\\", "\\\\");
-			Connection.SendString("LOAD " + ID + " " + clipname + (string)(loop ? " LOOP" : ""));
+			Connection.SendString("LOAD " + ID + " \"" + clipname + (loop ? "\" LOOP" : "\""));
 			return true;
 		}
         public bool Load(int videoLayer, string clipname, bool loop)
@@ -33,7 +33,7 @@ namespace Svt.Caspar
             if (videoLayer == -1)
                 Load(clipname, loop);
             else
-                Connection.SendString("LOAD " + ID + "-" + videoLayer + " " + clipname + (string)(loop ? " LOOP" : ""));
+                Connection.SendString("LOAD " + ID + "-" + videoLayer + " \"" + clipname + (loop ? "\" LOOP" : "\""));
 
             return true;
         }
@@ -41,9 +41,9 @@ namespace Svt.Caspar
 		{
             string clipname = item.Clipname.Replace("\\", "\\\\");
             if (item.VideoLayer == -1)
-                Connection.SendString("LOAD " + ID + " " + clipname + (string)(item.Loop ? " LOOP" : ""));
+                Connection.SendString("LOAD " + ID + " \"" + clipname + (item.Loop ? "\" LOOP" : "\""));
             else
-                Connection.SendString("LOAD " + ID + "-" + item.VideoLayer + " " + clipname + (string)(item.Loop ? " LOOP" : ""));
+                Connection.SendString("LOAD " + ID + "-" + item.VideoLayer + " \"" + clipname + (item.Loop ? "\" LOOP" : "\""));
 			return true;
 		}
        
@@ -58,16 +58,16 @@ namespace Svt.Caspar
             if (item.VideoLayer == -1)
             {
                 if (item.Seek == -1)
-                    Connection.SendString("LOADBG " + ID + " " + clipname + (string)(item.Loop ? " LOOP" : "") + " " + item.Transition);
+                    Connection.SendString("LOADBG " + ID + " \"" + clipname + (item.Loop ? "\" LOOP " : "\" ") + item.Transition);
                 else
-                    Connection.SendString("LOADBG " + ID + " " + clipname + (string)(item.Loop ? " LOOP" : "") + " " + item.Transition + " SEEK " + item.Seek + " LENGTH " + item.Length);
+                    Connection.SendString("LOADBG " + ID + " \"" + clipname + (item.Loop ? "\" LOOP " : "\" ") + item.Transition + " SEEK " + item.Seek + " LENGTH " + item.Length);
             }
             else
             {
                 if (item.Seek == -1)
-                    Connection.SendString("LOADBG " + ID + "-" + item.VideoLayer + " " + clipname + (string)(item.Loop ? " LOOP" : "") + " " + item.Transition);
+                    Connection.SendString("LOADBG " + ID + "-" + item.VideoLayer + " \"" + clipname + (item.Loop ? "\" LOOP " : "\" ") + item.Transition);
                 else
-                    Connection.SendString("LOADBG " + ID + "-" + item.VideoLayer + " " + clipname + (string)(item.Loop ? " LOOP" : "") + " " + item.Transition + " SEEK " + item.Seek + " LENGTH " + item.Length);
+                    Connection.SendString("LOADBG " + ID + "-" + item.VideoLayer + " \"" + clipname + (item.Loop ? "\" LOOP " : "\" ") + item.Transition + " SEEK " + item.Seek + " LENGTH " + item.Length);
             }
 
 			return true;
@@ -76,9 +76,9 @@ namespace Svt.Caspar
         {
             clipname = clipname.Replace("\\", "\\\\");
             if (videoLayer == -1)
-                Connection.SendString("LOADBG " + ID + " " + clipname + (string)(loop ? " LOOP" : ""));
+                Connection.SendString("LOADBG " + ID + " \"" + clipname + (loop ? "\" LOOP" : "\""));
             else
-                Connection.SendString("LOADBG " + ID + "-" + videoLayer + " " + clipname + (string)(loop ? " LOOP" : ""));
+                Connection.SendString("LOADBG " + ID + "-" + videoLayer + " \"" + clipname + (loop ? "\" LOOP" : "\""));
            
             return true;
         }
@@ -86,9 +86,9 @@ namespace Svt.Caspar
         {
             clipname = clipname.Replace("\\", "\\\\");
             if (videoLayer == -1)
-                Connection.SendString("LOADBG " + ID + " " + clipname + (string)(loop ? " LOOP" : "") + " SEEK " + seek.ToString() + " LENGTH " + length.ToString());
+                Connection.SendString("LOADBG " + ID + " \"" + clipname + (loop ? "\" LOOP" : "\"") + " SEEK " + seek.ToString() + " LENGTH " + length.ToString());
             else
-                Connection.SendString("LOADBG " + ID + "-" + videoLayer + " " + clipname + (string)(loop ? " LOOP" : "") + " SEEK " + seek.ToString() + " LENGTH " + length.ToString());
+                Connection.SendString("LOADBG " + ID + "-" + videoLayer + " \"" + clipname + (loop ? "\" LOOP" : "\"") + " SEEK " + seek.ToString() + " LENGTH " + length.ToString());
 
             return true;
         }
@@ -96,9 +96,9 @@ namespace Svt.Caspar
 		{
             clipname = clipname.Replace("\\", "\\\\");
             if (videoLayer == -1)
-			    Connection.SendString("LOADBG " + ID + " " + clipname + (string)(loop ? " LOOP" : "") + " " + transition.ToString() + " " + transitionDuration.ToString());
+			    Connection.SendString("LOADBG " + ID + " \"" + clipname + (loop ? "\" LOOP " : "\" ")  + transition.ToString() + " " + transitionDuration.ToString());
             else
-                Connection.SendString("LOADBG " + ID + "-" + videoLayer + " " + clipname + (string)(loop ? " LOOP" : "") + " " + transition.ToString() + " " + transitionDuration.ToString());
+                Connection.SendString("LOADBG " + ID + "-" + videoLayer + " \"" + clipname + (loop ? "\" LOOP " : "\" ") + transition.ToString() + " " + transitionDuration.ToString());
 
 			return true;
 		}
@@ -106,9 +106,9 @@ namespace Svt.Caspar
         {
             clipname = clipname.Replace("\\", "\\\\");
             if (videoLayer == -1)
-                Connection.SendString("LOADBG " + ID + " " + clipname + (string)(loop ? " LOOP" : "") + " " + transition.ToString() + " " + transitionDuration.ToString() + " " + direction.ToString());
+                Connection.SendString("LOADBG " + ID + " \"" + clipname + (loop ? "\" LOOP " : "\" ") + transition.ToString() + " " + transitionDuration.ToString() + " " + direction.ToString());
             else
-                Connection.SendString("LOADBG " + ID + "-" + videoLayer + " " + clipname + (string)(loop ? " LOOP" : "") + " " + transition.ToString() + " " + transitionDuration.ToString() + " " + direction.ToString());
+                Connection.SendString("LOADBG " + ID + "-" + videoLayer + " \"" + clipname + (loop ? "\" LOOP " : "\" ")  + transition.ToString() + " " + transitionDuration.ToString() + " " + direction.ToString());
 
             return true;
         }
@@ -116,9 +116,9 @@ namespace Svt.Caspar
         {
             clipname = clipname.Replace("\\", "\\\\");
             if (videoLayer == -1)
-                Connection.SendString("LOADBG " + ID + " " + clipname + (string)(loop ? " LOOP" : "") + " " + transition.ToString() + " " + transitionDuration.ToString() + " " + direction.ToString());
+                Connection.SendString("LOADBG " + ID + " \"" + clipname + (loop ? "\" LOOP " : "\" ") + transition.ToString() + " " + transitionDuration.ToString() + " " + direction.ToString());
             else
-                Connection.SendString("LOADBG " + ID + "-" + videoLayer + " " + clipname + (string)(loop ? " LOOP" : "") + " " + transition.ToString() + " " + transitionDuration.ToString() + " " + direction.ToString() + " SEEK " + seek);
+                Connection.SendString("LOADBG " + ID + "-" + videoLayer + " \"" + clipname + (loop ? "\" LOOP " : "\" ") + transition.ToString() + " " + transitionDuration.ToString() + " " + direction.ToString() + " SEEK " + seek);
 
             return true;
 
@@ -127,9 +127,9 @@ namespace Svt.Caspar
         {
             clipname = clipname.Replace("\\", "\\\\");
             if (videoLayer == -1)
-                Connection.SendString("LOADBG " + ID + " " + clipname + (string)(loop ? " LOOP" : "") + " " + transition.ToString() + " " + transitionDuration.ToString() + " " + direction.ToString() + " SEEK " + seek.ToString() + " LENGTH " + length.ToString());
+                Connection.SendString("LOADBG " + ID + " \"" + clipname + (loop ? "\" LOOP " : "\" ") + transition.ToString() + " " + transitionDuration.ToString() + " " + direction.ToString() + " SEEK " + seek.ToString() + " LENGTH " + length.ToString());
             else
-                Connection.SendString("LOADBG " + ID + "-" + videoLayer + " " + clipname + (string)(loop ? " LOOP" : "") + " " + transition.ToString() + " " + transitionDuration.ToString() + " " + direction.ToString() + " SEEK " + seek.ToString() + " LENGTH " + length.ToString());
+                Connection.SendString("LOADBG " + ID + "-" + videoLayer + " \"" + clipname + (loop ? "\" LOOP " : "\" ") + transition.ToString() + " " + transitionDuration.ToString() + " " + direction.ToString() + " SEEK " + seek.ToString() + " LENGTH " + length.ToString());
 
             return true;
         }
