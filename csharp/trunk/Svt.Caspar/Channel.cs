@@ -46,13 +46,14 @@ namespace Svt.Caspar
                 Connection.SendString("LOAD " + ID + "-" + item.VideoLayer + " \"" + clipname + (item.Loop ? "\" LOOP" : "\""));
 			return true;
 		}
-       
 
+        public bool Print()
+        {
+            Connection.SendString("PRINT " + ID);
+            return true;
+        }
 
-
-
-
-		public bool LoadBG(CasparItem item)
+        public bool LoadBG(CasparItem item)
 		{
             string clipname = item.Clipname.Replace("\\", "\\\\");
             if (item.VideoLayer == -1)
