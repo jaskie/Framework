@@ -2,3 +2,5 @@
 /csharp/trunk/Svt.Network/obj
 /csharp/trunk/Svt.Caspar/bin
 /csharp/trunk/Svt.Caspar/obj
+/csharp/trunk/Svt.Caspar.Controls/obj/Debug
+/csharp/trunk/Svt.Caspar.Hosts/obj/Debug/*.cache
